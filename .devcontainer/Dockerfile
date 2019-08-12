@@ -19,8 +19,8 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     PATH=/usr/local/cargo/bin:$PATH
 
 # Install rustup
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup-init.sh
-    && chmod +x rustup-init.sh
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup-init.sh \
+    && chmod +x rustup-init.sh \
     && ./rustup-init.sh -y --default-toolchain nightly-gnu
 
 # Configure apt and install packages
