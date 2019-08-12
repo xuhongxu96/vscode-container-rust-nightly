@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
 #-------------------------------------------------------------------------------------------------------------
 
-FROM rust:1
+FROM buildpack-deps:stretch
 
 # Or your actual UID, GID on Linux if not the default 1000
 ARG USERNAME=vscode
@@ -13,6 +13,16 @@ ARG USER_GID=$USER_UID
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Setup env for rust
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH
+
+# Install rustup
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup-init.sh
+    && chmod +x rustup-init.sh
+    && ./rustup-init.sh -y --default-toolchain nightly-gnu
+
 # Configure apt and install packages
 RUN apt-get update \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
@@ -21,7 +31,7 @@ RUN apt-get update \
     && apt-get -y install git procps lsb-release \
     #
     # Install other dependencies
-    && apt-get install -y lldb-3.9 \
+    && apt-get install -y lldb-4.0 \
     #
     # Install Rust components
     && rustup update \
