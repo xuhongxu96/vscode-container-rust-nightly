@@ -1,4 +1,6 @@
-# Try Out Development Containers: Rust
+# Try Out Development Containers: Rust-Nightly
+
+> I forked the [microsoft/vscode-remote-try-rust](https://github.com/microsoft/vscode-remote-try-rust) and modified it to use rust nightly.
 
 This is a sample project that lets you try out the **[VS Code Remote - Containers](https://aka.ms/vscode-remote/containers)** extension in a few easy steps.
 
